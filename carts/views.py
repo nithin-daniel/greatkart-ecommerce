@@ -46,7 +46,7 @@ def add_cart(request, product_id):
         cart_item.save()
     return redirect('cart')
 
-# Product Remove Funtion
+# Product Decrement Funtion
 
 def remove_cart(request,product_id):
     cart = Cart.objects.get(cart_id=_cart_id(request))
@@ -57,7 +57,19 @@ def remove_cart(request,product_id):
         cart_item.save()
     else:
         cart_item.delete()
+        # pass  #if the product is not need to  delete  
     return redirect('cart')
+
+# Product Remove Fuction
+
+def remove_cart_item(request, product_id):
+    cart = Cart.objects.get(cart_id=_cart_id(request))
+    product = get_object_or_404(Product, id=product_id)
+    cart_items = CartItem.objects.get(product=product,cart=cart)
+    
+    cart_items.delete()
+    return redirect('cart')
+    
 
 # Cart Funtion
 
