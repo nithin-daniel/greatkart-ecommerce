@@ -8,6 +8,19 @@
     <div class="container">
     
     <!-- ============================ COMPONENT 1 ================================= -->
+
+
+
+    {% if not cart_items %}
+        <!-- message -->
+        <h2 class="text-center mb-4" >Your Shopping Cart is Empty</h2>
+
+        <div class="text-center">
+            <a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping</a>
+        </div>
+
+        {% else %}
+
     
     <div class="row">
         <aside class="col-lg-9">
@@ -93,6 +106,7 @@
     
     
     </div> <!-- row.// -->
+    {% endif %}
     <!-- ============================ COMPONENT 1 END .// ================================= -->
     
     </div> <!-- container .//  -->
