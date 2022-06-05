@@ -35,7 +35,11 @@ def add_cart(request, product_id):
 
     try:
         cart_item = CartItem.objects.get(product=product,cart=cart)
-        cart_item.quantity += cart_item.quantity # cart_item.quantity =  cart_item.quantity + 1
+
+        # cart_item.quantity += cart_item.quantity #THIS CODE SHOWING SOME ERROR WHILE INCREMENTING
+        
+        
+        cart_item.quantity =  cart_item.quantity + 1
         cart_item.save()
     except CartItem.DoesNotExist:
         cart_item = CartItem.objects.create(
