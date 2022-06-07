@@ -4,8 +4,13 @@
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg">
     <div class="container">
-        <h2 class="title-page">Our Store</h2>
-        
+
+        {% if 'search' in request.path %}
+        <!-- Search Result -->
+        <h2 class="title-page">Search Result for " {{keyword}} "</h2>
+        {% else %}
+            <h2 class="title-page">Our Store</h2>
+        {% endif %}
     </div> <!-- container //  -->
     </section>
     <!-- ========================= SECTION INTRO END// ========================= -->
@@ -121,33 +126,40 @@
     
     <header class="border-bottom mb-4 pb-3">
             <div class="form-inline">
-                <span class="mr-md-auto"><b>{{count}}</b> Items found </span>
+                <span class="mr-md-auto"><b>{{product_count}}</b> Items found </span>
                 
             </div>
     </header><!-- sect-heading -->
     
     <div class="row">
+        {% if products %}
         {% for product in products %}
-            <div class="col-md-4" style="cursor: pointer;">
-                <figure class="card card-product-grid">
-                    <div class="img-wrap"> 
-                        
-                        <a href="{{ product.get_url }}"><img src="{{product.images.url}} "></a>
-                        
-                    </div> <!-- img-wrap.// -->
-                    <figcaption class="info-wrap">
-                        <div class="fix-height">
-                            <a href="./product-detail.html" class="title">{{product.product_name}}</a>
-                            <div class="price-wrap mt-2">
-                                <span class="price">${{product.price}}</span>
-                                <del class="price-old">$1980</del>
-                            </div> <!-- price-wrap.// -->
-                        </div>
-                        <a href="{{ product.get_url }}" class="btn btn-block btn-primary">View Details</a>
-                    </figcaption>
-                </figure>
-            </div> <!-- col.// -->
-        {% endfor %}
+        <div class="col-md-4" style="cursor: pointer;">
+            <figure class="card card-product-grid">
+                <div class="img-wrap"> 
+                    
+                    <a href="{{ product.get_url }}"><img src="{{product.images.url}} "></a>
+                    
+                </div> <!-- img-wrap.// -->
+                <figcaption class="info-wrap">
+                    <div class="fix-height">
+                        <a href="./product-detail.html" class="title">{{product.product_name}}</a>
+                        <div class="price-wrap mt-2">
+                            <span class="price">${{product.price}}</span>
+                            <del class="price-old">$1980</del>
+                        </div> <!-- price-wrap.// -->
+                    </div>
+                    <a href="{{ product.get_url }}" class="btn btn-block btn-primary">View Details</a>
+                </figcaption>
+            </figure>
+        </div> <!-- col.// -->
+    {% endfor %}
+            {% else %}
+                <div>
+    <h2>No Result Found Named " {{keyword}} "</h2>
+        </div>
+        {% endif %}
+        
     </div> <!-- row end.// -->
     
     
