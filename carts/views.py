@@ -92,21 +92,24 @@ def add_cart(request, product_id):
 
 # Product Decrement Funtion
 
-def remove_cart(request,product_id):
+def remove_cart(request,product_id,cart_item_id):
     cart = Cart.objects.get(cart_id=_cart_id(request))
     product = get_object_or_404(Product, id=product_id)
-    cart_item = CartItem.objects.get(product=product,cart=cart)
-    if cart_item.quantity > 1:
-        cart_item.quantity -= 1 # decrement the value
-        cart_item.save()
-    else:
-        cart_item.delete()
-        # pass  #if the product is not need to  delete  
+    try:
+        cart_item = CartItem.objects.get(product=product,cart=cart,id=cart_item_id)
+        if cart_item.quantity > 1:
+            cart_item.quantity -= 1 # decrement the value
+            cart_item.save()
+        else:
+            cart_item.delete()
+            # pass  #if the product is not need to  delete  
+    except:
+            pass
     return redirect('cart')
 
 # Product Remove Fuction
 
-def remove_cart_item(request, product_id):
+def remove_cart_item(request, product_id,):
     cart = Cart.objects.get(cart_id=_cart_id(request))
     product = get_object_or_404(Product, id=product_id)
     cart_items = CartItem.objects.get(product=product,cart=cart)
