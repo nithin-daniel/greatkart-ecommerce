@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404
-from store.models import Product
+from store.models import Product,Variation
 from .models import Cart, CartItem
 from django.shortcuts import redirect
 from django.http import HttpResponse
@@ -25,18 +25,13 @@ def add_cart(request, product_id):
         for item in request.POST:
             key = item
             value = request.POST[key]
-
             try:
-                variation = Variation.objects.get(product=product,variation_category__iexact=key, variation_value__iexact=value)
+                variation = Variation.objects.get(product=product, variation_category__iexact=key, variation_value__iexact=value)
                 product_variation.append(variation)
             except:
                 pass
 
-    # color = request.GET['color']
-    # # size  = request.GET['size']
-    # return HttpResponse(color)
-    # exit() 
-
+    
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request)) #get the cart using in the session
     except Cart.DoesNotExist:
@@ -53,8 +48,11 @@ def add_cart(request, product_id):
     try:
         cart_item = CartItem.objects.get(product=product,cart=cart)
 
-        # if len(product_variation)> 0:
-        #     for 
+        if len(product_variation) > 0:
+            cart_item.variations.clear()
+            for item in product_variation:
+                cart_item.variations.add(item)
+
        #cart_item.quantity += cart_item.quantity #THIS CODE SHOWING SOME ERROR WHILE INCREMENTING
         cart_item.quantity =  cart_item.quantity + 1
         cart_item.save()
@@ -64,6 +62,12 @@ def add_cart(request, product_id):
             quantity= 1,
             cart = cart,
         )
+
+        if len(product_variation) > 0:
+            cart_item.variations.clear()
+            for item in product_variation:
+                cart_item.variations.add(item)
+
         cart_item.save()
     return redirect('cart')
 
