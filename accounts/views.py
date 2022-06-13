@@ -98,4 +98,6 @@ def dashboard(request):
 
 
 def forgotPassword(request):
+   
+
     return render(request, 'accounts/forgotPassword.html')
