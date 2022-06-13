@@ -95,3 +95,7 @@ def activate(request,uidb64,token): #  Tutorial = https://studygyaan.com/django/
 @login_required(login_url = 'login')
 def dashboard(request):
     return  render(request, 'accounts/dashboard.html')
+
+
+def forgotPassword(request):
+    return render(request, 'accounts/forgotPassword.html')
