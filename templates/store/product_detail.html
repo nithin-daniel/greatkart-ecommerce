@@ -113,7 +113,11 @@
             <textarea name="review"   rows="4" class="form-control"></textarea>
             <br>
             {% if user.is_authenticated %}
+              {% if orderproduct %}
             <input type="submit" value="Submit Review" class="btn btn-primary">
+              {% else %}
+              <p>You must purchase this product to post a review.</p>
+              {% endif %}
             {% else %}
             <p>You must logged in to post a review. <span><a href="{% url 'login' %}">Login Now</a></span></p>
             {% endif %}
@@ -133,7 +137,7 @@
               class="img-xs icon rounded-circle"
             />
             <div class="text">
-              <span class="date text-muted float-md-right">24.04.2020 </span>
+              <!-- <span class="date text-muted float-md-right">24.04.2020 </span> -->
               <h6 class="mb-1">Mike John</h6>
             </div>
           </div>
