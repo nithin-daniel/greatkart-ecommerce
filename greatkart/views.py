@@ -8,7 +8,7 @@ def home(request):
     # Get the reviews
     for product in products:
         reviews = ReviewRating.objects.filter(product_id=product.id,status=True)
-    
+    reviews = 0
     context = {
         'products':products,
         'reviews' :reviews,
