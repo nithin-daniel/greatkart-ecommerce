@@ -26,14 +26,14 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
 
-# Generally avoid wildcards(*). However since Heroku router provides hostname validation it is ok
-if IS_HEROKU:
-    ALLOWED_HOSTS = ["*"]
-else:
-    ALLOWED_HOSTS = []
+# # Generally avoid wildcards(*). However since Heroku router provides hostname validation it is ok
+# if IS_HEROKU:
+#     ALLOWED_HOSTS = ["*"]
+# else:
+#     ALLOWED_HOSTS = []
 
 
 # Application definition
