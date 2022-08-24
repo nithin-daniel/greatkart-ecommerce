@@ -163,3 +163,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Razorpay Payment Gateway
 
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
