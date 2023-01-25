@@ -161,11 +161,11 @@ def dashboard(request):
     orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True)
     orders_count = orders.count()
 
-    userprofile = UserProfile.objects.get(user_id=request.user.id)
+    # userprofile = UserProfile.objects.get(user_id=request.user.id)
 
     context = {
         'orders_count' : orders_count,
-        'userprofile' : userprofile,
+        # 'userprofile' : userprofile,
 
     }
 
@@ -192,7 +192,7 @@ def forgotPassword(request):
             send_email = EmailMessage(mail_subject,message,to=[to_email])
             send_email.send()
 
-            message.success(request, 'Password reset email has been sent to your email address.')
+            messages.success(request, 'Password reset email has been sent to your email address.')
             return redirect('login')
         else:
             messages.error(request, 'Account does not exist!')
